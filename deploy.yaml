@@ -16,6 +16,6 @@ spec:
         spec:
             containers:
             -   name: ip-echo
-                image: ip-echo:1.0
+                image: mattackard/ip-echo:1.0
                 ports:
                 -   containerPort: 8080
