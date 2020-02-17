@@ -1,21 +1,41 @@
+#deploy 3 jserver instances 
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-    name: ip-echo-deployment
-    labels:
-        app: ip-echo
+    name: jserver-deployment
 spec:
     replicas: 3
     selector:
         matchLabels:
-            app: ip-echo
+            app: jserver
     template:
         metadata:
             labels:
-                app: ip-echo
+                app: jserver
         spec:
             containers:
-            -   name: ip-echo
-                image: mattackard/ip-echo:1.0
+            -   name: jserver
+                image: mattackard/jserver:v0.2
+                env:
+                -   name: DB_SERVER
+                    value: uta-go-bam-p2.database.windows.net
+                -   name: DB_USER
+                    value: uta-go-bam-p2
+                -   name: DB_PORT
+                    value: "1433"
+                -   name: DB_PASS
+                    value: Ubuntu200106
+                -   name: DB_NAME
+                    value: uta-go-bam-p2
+                -   name: SERV_PORT
+                    value: "8080"
+                -   name: REV_FRONT
+                    value: "8080"
+                -   name: REV_BACK
+                    value: jserver:8080
+                -   name: LOG_ADDR
+                    value: logger:9090
+                -   name: LOG_PORT
+                    value: "9090"
                 ports:
                 -   containerPort: 8080

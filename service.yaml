@@ -1,0 +1,14 @@
+#create external ip for cluster
+apiVersion: v1
+kind: Service
+metadata:
+  name: jserver-externalip-svc
+  labels:
+    app: jserver-externalip
+spec:
+  ports:
+  - port: 80
+  externalIPs:
+  - 172.17.0.30
+  selector:
+    app: jserver-externalip
